@@ -1,18 +1,18 @@
 import _ from 'lodash';
 import { SOURCES } from '../../constants/sources.const';
-import NpmRegisteryHandler from './NpmRegisteryHandler';
+import NpmFetcher from './NpmFetcher';
 import { Library } from './../../models/Library';
 import { VersionTime } from './../../models/VersionTime';
 
 export default class NpmResolver {
     constructor() {
-        this.handler = new NpmRegisteryHandler();
+        this.fetcher = new NpmFetcher();
 
         this.getLatest = this.getLatest.bind(this);
     }
 
     async getLatest({ name }) {
-        let metadata = await this.handler.fetchMetdata(name);
+        let metadata = await this.fetcher.fetchMetdata(name);
         let { version, } = metadata;
 
         return new Library(

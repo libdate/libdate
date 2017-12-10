@@ -3,15 +3,13 @@ import { NPM_REGISTRY_URL } from '../consts';
 import _ from 'lodash';
 import { promisify } from 'util';
 
-export default class NpmRegisteryHandler {
+export default class NpmFetcher {
     constructor() {
         this.npm = new Registry({ registry: NPM_REGISTRY_URL });
 
         this.npm.packages.get = promisify(this.npm.packages.get);
 
         this.fetchMetdata = this.fetchMetdata.bind(this);
-        this.fetchVersionTimes = this.fetchVersionTimes.bind(this);
-        this.fetchLatestVersionTime = this.fetchLatestVersionTime.bind(this);
     }
 
     async fetchMetdata(library) {
