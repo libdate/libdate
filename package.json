@@ -1,0 +1,35 @@
+{
+  "name": "semsub",
+  "version": "1.0.0",
+  "description": "Semantic version package subscriber",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "npm start test",
+    "watch": "nodemon index.js"
+  },
+  "author": "Lior Greenberg",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-helpers": "^6.24.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-es2015-node": "^6.1.1",
+    "graphql": "^0.11.7",
+    "graphql-client": "^2.0.0",
+    "graphql-date": "^1.0.3",
+    "koa": "^2.4.1",
+    "koa-cors": "0.0.16",
+    "koa-graphql": "^0.7.3",
+    "koa-route": "^3.2.0",
+    "koa-router": "^7.3.0",
+    "lodash": "^4.17.4",
+    "npm-registry": "^0.1.13",
+    "promise": "^8.0.1"
+  },
+  "devDependencies": {
+    "babel-plugin-stack-trace-sourcemap": "^1.0.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "nodemon": "^1.12.1"
+  }
+}
