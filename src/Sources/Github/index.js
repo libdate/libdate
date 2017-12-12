@@ -3,6 +3,7 @@ import { SOURCES } from '../../constants/sources.const';
 import { Library } from '../../models/Library/index';
 import { relative } from 'path';
 import { VersionTime } from '../../models/VersionTime/index';
+import moment from 'moment';
 
 export default class GithubResolver {
     constructor() {
@@ -24,7 +25,8 @@ export default class GithubResolver {
             result = new Library(
                 name,
                 latestRelease.name,
-                new VersionTime(latestRelease.tag.name, latestRelease.publishedAt),
+                new VersionTime(latestRelease.tag.name, 
+                                moment.utc(latestRelease.publishedAt)),
                 SOURCES.GITHUB
             );
         }

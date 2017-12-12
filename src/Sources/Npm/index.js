@@ -3,6 +3,7 @@ import { SOURCES } from '../../constants/sources.const';
 import NpmFetcher from './NpmFetcher';
 import { Library } from './../../models/Library';
 import { VersionTime } from './../../models/VersionTime';
+import moment from 'moment';
 
 export default class NpmResolver {
     constructor() {
@@ -30,6 +31,6 @@ export default class NpmResolver {
     getLatestVersionTime(libraryMetadata) {
         let versions = this.getVersionTimes(libraryMetadata);
         let {version, date} = _.maxBy(versions, ({ date }) => date);
-        return new VersionTime(version, date);
+        return new VersionTime(version, moment(date));
     }
 }
