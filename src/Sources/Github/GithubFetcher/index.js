@@ -1,6 +1,6 @@
 import GraphQLClient from 'graphql-client';
 import { GITHUB_URL, TOKEN_VARIABLE } from './consts';
-import latestVersionQuery from './queries/latestVersionQuery'
+import searchRepositoryQuery from './queries/searchRepositoryQuery'
 import env from '../../../env';
 
 export default class GithubFetcher {
@@ -12,8 +12,7 @@ export default class GithubFetcher {
               }
         });
     }
-
     get(name) {
-        return this.client.query(latestVersionQuery(name));
+        return this.client.query(searchRepositoryQuery(name));
     }
 }

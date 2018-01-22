@@ -3,14 +3,14 @@ import { SOURCE_HANDLERS } from './consts';
 
 export default class LibraryResolver {
     constructor() {
-        this.getLatest = this.getLatest.bind(this);
+        this.get = this.get.bind(this);
     }
 
-    async getLatest(obj) {
+    async get(obj) {
         const {name, source} = obj;
 
         let sourceHandler = new SOURCE_HANDLERS[source]();
         
-        return sourceHandler.getLatest(obj);
+        return sourceHandler.get(obj);
     }
 }

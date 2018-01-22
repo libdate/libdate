@@ -2,26 +2,27 @@ import _ from 'lodash';
 import { SOURCES } from '../../constants/sources.const';
 import NpmFetcher from './NpmFetcher';
 import { Library } from './../../models/Library';
-import { VersionTime } from './../../models/VersionTime';
+import { VersionData } from './../../models/VersionData';
 import moment from 'moment';
 
 export default class NpmResolver {
     constructor() {
         this.fetcher = new NpmFetcher();
 
-        this.getLatest = this.getLatest.bind(this);
+        this.get = this.get.bind(this);
     }
 
-    async getLatest({ name }) {
+    async get({ name }) {
         let metadata = await this.fetcher.fetchMetdata(name);
-        let { version, } = metadata;
+        let { version, description, readme } = metadata;
 
-        return new Library(
+        return new Library({
             name,
-            version,
-            this.getLatestVersionTime(metadata),
-            SOURCES.NPM
-        );
+            current_version: version,
+            version_data: this.getLatestVersionTime(metadata),
+            description,
+            source: SOURCES.NPM
+        });
     }
 
     getVersionTimes({ time: { modified, created, ...versions } }) {
@@ -30,7 +31,7 @@ export default class NpmResolver {
 
     getLatestVersionTime(libraryMetadata) {
         let versions = this.getVersionTimes(libraryMetadata);
-        let {version, date} = _.maxBy(versions, ({ date }) => date);
-        return new VersionTime(version, moment(date));
+        let { version, date } = _.maxBy(versions, ({ date }) => date);
+        return new VersionData(version, moment(date));
     }
 }

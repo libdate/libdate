@@ -4,7 +4,9 @@ export default `
 fragment REPOSITORY_SEARCH on Repository {
   name,
   createdAt,
-  releases(first: 1, orderBy: {field:CREATED_AT, direction:DESC}){
+  description,
+  url,
+  releases(first: 5, orderBy: {field:CREATED_AT, direction:DESC}){
     edges {
       node {
         ...RELEASE
