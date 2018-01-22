@@ -12,7 +12,7 @@ app.use(cors());
 const graphqlRoutes = new Router();
 
 graphqlRoutes.get('/', (ctx, next) => {
-    console.log('Hello')
+    ctx.body = 'Hello';
 });
 
 graphqlRoutes.all('/graphql', graphqlHTTP({
