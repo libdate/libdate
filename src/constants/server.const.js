@@ -1,1 +1,1 @@
-export const LISTEN_PORT = 3001;
+export const LISTEN_PORT = process.env.PORT || 3001;
