@@ -26,11 +26,10 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
     "npm-registry": "^0.1.13",
-    "promise": "^8.0.1"
-  },
-  "devDependencies": {
+    "promise": "^8.0.1",
     "babel-plugin-stack-trace-sourcemap": "^1.0.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "nodemon": "^1.12.1"
+  },
+  "devDependencies": {
   }
 }
