@@ -8,7 +8,7 @@ import GithubFetcher from '../Sources/Github/GithubFetcher';
 
 const app = new Koa();
 
-app.use(cors({origin: ALLOW_ORIGIN}));
+app.use(cors());
 
 const graphqlRoutes = new Router();
 
