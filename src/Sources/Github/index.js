@@ -1,4 +1,4 @@
-import GithubFetcher from './GitHubFetcher';
+import GithubFetcher from './fetcher';
 import { SOURCES } from '../../constants/sources.const';
 import { Library } from '../../models/Library/index';
 import { relative } from 'path';

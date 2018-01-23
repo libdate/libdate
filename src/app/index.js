@@ -4,7 +4,6 @@ import Router from 'koa-router';
 import cors from 'koa-cors';
 import graphqlHTTP from 'koa-graphql';
 import { rootValue, schema } from '../models/root';
-import GithubFetcher from '../Sources/Github/GithubFetcher';
 
 const app = new Koa();
 
