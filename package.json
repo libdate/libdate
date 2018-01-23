@@ -11,10 +11,14 @@
   "author": "Lior Greenberg",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-core": "^6.26.0",
     "babel-helpers": "^6.24.1",
+    "babel-plugin-stack-trace-sourcemap": "^1.0.2",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015-node": "^6.1.1",
+    "firebase-admin": "^5.8.1",
     "graphql": "^0.11.7",
     "graphql-client": "^2.0.0",
     "graphql-date": "^1.0.3",
@@ -26,10 +30,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
     "npm-registry": "^0.1.13",
-    "promise": "^8.0.1",
-    "babel-plugin-stack-trace-sourcemap": "^1.0.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
+    "promise": "^8.0.1"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

@@ -15,14 +15,13 @@ export default class GithubResolver {
     async get({ name: libQuery }) {
         let response = await this.fetcher.get(libQuery);
         let result = null;
-        let latestVersionData = this.extractSearchData(response);
 
-        if (latestVersionData) {
-            let { name, releases, description, url} = latestVersionData;
+        if (response) {
+            let { name, releases, description, url} = response;
+            
 
-            const releasesData = releases.edges.map(currEdge => 
-                this.createVersionTime(currEdge.node));
-            const latestRelease = releasesData[0];
+            const releasesData = releases.map(this.createVersionTime);
+            const [latestRelease] = releasesData;
 
             result = new Library({
                 name,
@@ -38,29 +37,11 @@ export default class GithubResolver {
         return result;
     }
 
-    extractSearchData(response) {
-        if (response &&
-            response.data &&
-            response.data.search &&
-            response.data.search.edges &&
-            response.data.search.edges.length > 0) {
-            return response.data.search.edges[0].node;
-        }
-    }
-
-    extractReleaseData(releases, index) {
-        if (releases &&
-            releases.edges &&
-            releases.edges.length > index) {
-            return releases.edges[index].node;
-        }
-    }
-
     createVersionTime(releaseNode) {
         return VersionData.create({
-            version: releaseNode.tag.name,
-            date: moment.utc(releaseNode.publishedAt),
-            description: releaseNode.description,
+            version: releaseNode.name,
+            date: moment.utc(releaseNode.published_at),
+            description: releaseNode.body,
         });
     }
 }

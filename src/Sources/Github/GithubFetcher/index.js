@@ -1,18 +1,23 @@
-import GraphQLClient from 'graphql-client';
-import { GITHUB_URL, TOKEN_VARIABLE } from './consts';
-import searchRepositoryQuery from './queries/searchRepositoryQuery'
-import env from '../../../env';
+import axios from 'axios';
+import { SEARCH_REPO_ROUTE, RELEASES_ROUTE } from './routes';
 
 export default class GithubFetcher {
-    constructor() {
-        this.client = new GraphQLClient({
-            url: GITHUB_URL,
-            headers: {
-                Authorization: `bearer ${env.GITHUB_TOKEN}`
-              }
-        });
+    searchRepo(name) {
+        return axios.get(SEARCH_REPO_ROUTE(name));
     }
-    get(name) {
-        return this.client.query(searchRepositoryQuery(name));
+
+    getRepoVersions(owner, name) {
+        return axios.get(RELEASES_ROUTE(owner, name));
+    }
+
+    async get(searchName) {
+        let searchData = await this.searchRepo(searchName);
+
+        if (searchData.data && searchData.data.items && searchData.data.items[0]) {
+            const [repoData] = searchData.data.items;
+            const {owner: {login: ownerName}, name} = repoData;
+            const {data: releases} = await this.getRepoVersions(ownerName, name);
+            return {...repoData, releases};
+        }
     }
 }

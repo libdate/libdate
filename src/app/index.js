@@ -4,6 +4,7 @@ import Router from 'koa-router';
 import cors from 'koa-cors';
 import graphqlHTTP from 'koa-graphql';
 import { rootValue, schema } from '../models/root';
+import GithubFetcher from '../Sources/Github/GithubFetcher';
 
 const app = new Koa();
 
@@ -11,15 +12,12 @@ app.use(cors());
 
 const graphqlRoutes = new Router();
 
-graphqlRoutes.get('/', (ctx, next) => {
-    ctx.body = 'Hello';
-});
-
 graphqlRoutes.all('/graphql', graphqlHTTP({
     schema,
     rootValue,
     graphiql: true,
 }));
+
 
 app.use(graphqlRoutes.routes()).use(graphqlRoutes.allowedMethods());
 

@@ -1,1 +1,2 @@
-export const GITHUB_URL = 'https://api.github.com/graphql';
+export const SEARCH_PAGE_LIMIT = 1;
+export const RELEASES_PAGE_LIMIT = 5;
