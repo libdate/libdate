@@ -12,25 +12,25 @@ export default class GithubResolver {
         this.get = this.get.bind(this);
     }
 
-    async get({ name: libQuery }) {
-        let response = await this.fetcher.get(libQuery);
+    async get({ name: libQuery, owner}) {
+        let response = await this.fetcher.get(libQuery, owner);
         let result = null;
 
         if (response) {
-            let { name, releases, description, url} = response;
-            
+            let { name, releases, description, url, owner} = response;
 
             const releasesData = releases.map(this.createVersionTime);
             const [latestRelease] = releasesData;
 
             result = new Library({
                 name,
-                current_version: latestRelease.version,
+                current_version: latestRelease ? latestRelease.version : null,
                 version_data: latestRelease,
                 description,
                 releases: releasesData,
                 source: SOURCES.GITHUB,
                 githubUrl: url,
+                owner: owner.login,
             });
         }
 

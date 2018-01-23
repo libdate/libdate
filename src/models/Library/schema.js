@@ -7,4 +7,5 @@ type Library {
     description: String,
     releases: [VersionData],
     githubUrl: String,
+    owner: String,
 }`;
