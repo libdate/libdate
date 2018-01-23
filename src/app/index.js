@@ -1,4 +1,4 @@
-import { LISTEN_PORT } from '../constants/server.const';
+import { LISTEN_PORT, ALLOW_ORIGIN } from '../constants/server.const';
 import Koa from 'koa';
 import Router from 'koa-router';
 import cors from 'koa-cors';
@@ -8,7 +8,7 @@ import GithubFetcher from '../Sources/Github/GithubFetcher';
 
 const app = new Koa();
 
-app.use(cors());
+app.use(cors({origin: ALLOW_ORIGIN}));
 
 const graphqlRoutes = new Router();
 
@@ -17,7 +17,6 @@ graphqlRoutes.all('/graphql', graphqlHTTP({
     rootValue,
     graphiql: true,
 }));
-
 
 app.use(graphqlRoutes.routes()).use(graphqlRoutes.allowedMethods());
 
