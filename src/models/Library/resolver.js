@@ -8,7 +8,7 @@ export default class LibraryResolver {
 
     async get(obj) {
         const {name, source} = obj;
-
+        
         let sourceHandler = new SOURCE_HANDLERS[source]();
         
         return sourceHandler.get(obj);

@@ -9,7 +9,13 @@ export default class GithubTokenService  {
           });
     }
 
-    storeToken(token) {
-        admin.ref('/')
+    async readToken(email) {
+        let userSnapshot = await admin.ref(`/users/${email}`).once('value');
+
+        if (userSnapshot) {
+            let userData =userSnapshot.val();
+
+            
+        }
     }
 }

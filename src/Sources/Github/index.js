@@ -13,7 +13,13 @@ export default class GithubResolver {
     }
 
     async get({ name: libQuery, owner}) {
-        let response = await this.fetcher.get(libQuery, owner);
+        let repsonse;
+        try {
+            response = await this.fetcher.get(libQuery, owner);
+        } catch (error) {
+            console.error(error, libQuery, owner);
+        }
+        
         let result = null;
 
         if (response) {
