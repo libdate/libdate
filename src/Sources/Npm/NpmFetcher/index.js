@@ -37,7 +37,6 @@ export default class NpmFetcher {
     }
 
     throwNotFound(library) {
-        console.log('not found', library);
         throw new Error(`No libary named '${library}' found`);
     }
 

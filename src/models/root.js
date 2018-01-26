@@ -3,8 +3,9 @@ import Library from './Library';
 import _ from 'lodash';
 import Source from './Source';
 import VersionData from './VersionData';
+import Libraries from './Libraries/index';
 
-const models = [VersionData, Source, Library];
+const models = [VersionData, Source, Library, Libraries];
 
 const getQueries = () => models.map(({ query }) => query).filter(curr => curr);
 const getScehmas = () => models.map(({ schema }) => schema).filter(curr => curr);
