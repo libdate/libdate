@@ -39,12 +39,4 @@ export default class NpmFetcher {
     throwNotFound(library) {
         throw new Error(`No libary named '${library}' found`);
     }
-
-    throwPropertyNotFound(library, property) {
-        if (response[property]) {
-            response = response[property];
-        } else {
-            throw new Error(`Property ${property} not found in ${library}`);
-        }
-    }
 }

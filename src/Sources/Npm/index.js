@@ -13,7 +13,13 @@ export default class NpmResolver {
     }
 
     async get({ name }) {
-        let metadata = await this.fetcher.fetchMetdata(name);
+        let metadata;
+        try {
+            metadata = await this.fetcher.fetchMetdata(name);
+        } catch(error) {
+            console.error('Error resolving NPM:', error);
+        }
+
         let { version, description, readme } = metadata;
 
         return new Library({
