@@ -12,9 +12,10 @@ export const YEAR = 'year';
  * @param {Date} date The target date
  * @param {'second'|'minute'|'hour'|'day'|'month'|'year'} dateUnit 
  */
-export function calculateAge(date, dateUnit = DAY) {
+export function calculateAge(date, dateUnit = DAY, shouldRound = true) {
     const duration = calculateDuration(date, moment());
-    return Math.floor(duration.as(dateUnit));
+    const durationResult = duration.as(dateUnit);
+    return shouldRound ? Math.floor(durationResult) : durationResult;
 }
 
 /**

@@ -14,9 +14,13 @@ export default class LibraryResolver {
 
         let result
 
+        const options = {
+            roundAges: request.roundAges
+        };
+
         try {
-            let githubPromise = githubResolver.get(request);
-            let npmPromise = npmResolver.get(request);
+            let githubPromise = githubResolver.get(request, options);
+            let npmPromise = npmResolver.get(request, options);
 
             let [githubData, npmData] = await Promise.all([githubPromise, npmPromise])
             result = _.merge(githubData, npmData);

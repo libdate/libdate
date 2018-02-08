@@ -8,7 +8,7 @@ export default class LibrariesResolver {
     }
 
     async get(request) {
-        const {names, source, token} = request;
-        return names.split(',').map(name => this.libraryResolver.get({name, source, token}));
+        const {names, source, token, ...otherData} = request;
+        return names.split(',').map(name => this.libraryResolver.get({name, source, token, ...otherData}));
     }
 }

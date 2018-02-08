@@ -12,7 +12,7 @@ export default class NpmResolver {
         this.get = this.get.bind(this);
     }
 
-    async get({ name }) {
+    async get({ name }, options) {
         let metadata;
         try {
             metadata = await this.fetcher.fetchMetdata(name);
@@ -25,7 +25,7 @@ export default class NpmResolver {
         return new Library({
             name,
             current_version: version,
-            version_data: this.getLatestVersionTime(metadata),
+            version_data: this.getLatestVersionTime(metadata, options),
             description,
             source: SOURCES.NPM
         });
@@ -35,9 +35,9 @@ export default class NpmResolver {
         return _.map(versions, (currDate, currVersion) => ({ version: currVersion, date: currDate }));
     }
 
-    getLatestVersionTime(libraryMetadata) {
+    getLatestVersionTime(libraryMetadata, options) {
         let versions = this.getVersionTimes(libraryMetadata);
         let { version, date } = _.maxBy(versions, ({ date }) => date);
-        return new VersionData(version, moment(date));
+        return new VersionData({version, date: moment(date)}, options);
     }
 }

@@ -12,7 +12,7 @@ export default class GithubResolver {
         this.get = this.get.bind(this);
     }
 
-    async get({ name: libQuery, owner, token}) {
+    async get({ name: libQuery, owner, token }, options) {
         let response;
         try {
             response = await this.fetcher.get(libQuery, owner, token);
@@ -20,13 +20,14 @@ export default class GithubResolver {
             console.error(error, libQuery, owner);
             throw error;
         }
-        
+
         let result = null;
 
         if (response) {
-            let { name, releases, description, url, owner} = response;
+            let { name, releases, description, url, owner } = response;
 
-            const releasesData = releases.map(this.createVersionTime);
+            const releasesData = releases.map(currRelease =>
+                this.createVersionTime(currRelease, options));
             const [latestRelease] = releasesData;
 
             result = new Library({
@@ -44,11 +45,11 @@ export default class GithubResolver {
         return result;
     }
 
-    createVersionTime(releaseNode) {
-        return VersionData.create({
+    createVersionTime(releaseNode, options) {
+        return new VersionData({
             version: releaseNode.name,
             date: moment.utc(releaseNode.published_at),
             description: releaseNode.body,
-        });
+        }, options);
     }
 }
