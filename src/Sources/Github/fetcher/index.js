@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SEARCH_REPO_ROUTE, RELEASES_ROUTE } from './routes';
+import { SEARCH_REPO_ROUTE, RELEASES_ROUTE, TAGS_ROUTE } from './routes';
 
 export default class GithubFetcher {
     request(token, url) {
@@ -16,6 +16,11 @@ export default class GithubFetcher {
         return this.request(token, RELEASES_ROUTE(owner, name));
     }
 
+    getRepoTags(token, owner, name) {
+        return this.request(token, TAGS_ROUTE(owner, name));
+    }
+
+
     async get(searchName, owner, token) {
         let ownerName = owner;
 
@@ -26,10 +31,13 @@ export default class GithubFetcher {
             const { owner, name } = repoData;
             ownerName = owner.login;
 
-            let response = await this.getRepoVersions(token, ownerName, name);
-            const { data: releases } = response;
+            let releasesResponse = await this.getRepoVersions(token, ownerName, name);
+            const { data: releases } = releasesResponse;
 
-            let result = { ...repoData, releases };;
+            let tagsResponse = await this.getRepoTags(token, ownerName, name);
+            const { data: tags } = tagsResponse;
+
+            let result = { ...repoData, releases, tags};;
             return result;
         }
     }

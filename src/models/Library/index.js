@@ -11,7 +11,7 @@ export default {
 
 export class Library {
     constructor(libraryData) {
-        const {name, current_version, version_data, description, releases, githubUrl, owner} = libraryData;
+        const {name, current_version, version_data, description, releases, githubUrl, owner, tags} = libraryData;
 
         this.name = name;
         this.current_version = current_version;
@@ -20,5 +20,6 @@ export class Library {
         this.releases = releases;
         this.githubUrl = githubUrl;
         this.owner = owner;
+        this.tags = tags;
     }
 }

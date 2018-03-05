@@ -5,6 +5,7 @@ type Library {
     version_data: VersionData,
     description: String,
     releases: [VersionData],
+    tags: [VersionData],
     githubUrl: String,
     owner: String,
 }`;

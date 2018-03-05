@@ -24,10 +24,14 @@ export default class GithubResolver {
         let result = null;
 
         if (response) {
-            let { name, releases, description, url, owner } = response;
+            let { name, releases, description, url, owner, tags } = response;
 
             const releasesData = releases.map(currRelease =>
                 this.createVersionTime(currRelease, options));
+            const tagsData = tags
+                .filter(currTag => currTag.name !== 'patch_sync')
+                .map(currTag =>
+                    this.createVersionTime(currTag, options));
             const [latestRelease] = releasesData;
 
             result = new Library({
@@ -39,6 +43,7 @@ export default class GithubResolver {
                 source: SOURCES.GITHUB,
                 githubUrl: url,
                 owner: owner.login,
+                tags: tagsData,
             });
         }
 

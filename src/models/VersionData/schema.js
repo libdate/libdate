@@ -4,6 +4,6 @@ export const schema = `
         date: String,
         age_days: Float!,
         age_text: String!,
-        description: String!,
+        description: String,
     }
 `;

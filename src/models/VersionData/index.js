@@ -1,7 +1,7 @@
 import { schema } from './schema';
 import { calculateAge } from '../../services/calculateAge';
 
-export default  {
+export default {
     schema
 };
 

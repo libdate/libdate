@@ -15,7 +15,6 @@ export default class NpmFetcher {
     async fetchMetdata(library) {
         let matchingLibraries;
         let result;
-        const npm = new Registry({ registry: NPM_REGISTRY_URL });
 
         try {
             matchingLibraries = await this.npm.packages.get(library);

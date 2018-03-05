@@ -6,3 +6,5 @@ export const SEARCH_REPO_ROUTE = (repo, owner) => `
     ${API}/search/repositories?q="${owner ? `${owner}/${repo}` : repo}"&per_page=${SEARCH_PAGE_LIMIT}`;
 export const RELEASES_ROUTE = (owner, repo) =>
     `${API}/repos/${owner}/${repo}/releases?per_page=${RELEASES_PAGE_LIMIT}`;
+    export const TAGS_ROUTE = (owner, repo) =>
+    `${API}/repos/${owner}/${repo}/tags?per_page=${RELEASES_PAGE_LIMIT}`;

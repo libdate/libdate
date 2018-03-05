@@ -16,28 +16,28 @@ export default class NpmResolver {
         let metadata;
         try {
             metadata = await this.fetcher.fetchMetdata(name);
-        } catch(error) {
+        } catch (error) {
             console.error('Error resolving NPM:', error);
         }
 
         let { version, description, readme } = metadata;
+        const releases = this.getVersionTimes(metadata, options);
 
         return new Library({
             name,
             current_version: version,
-            version_data: this.getLatestVersionTime(metadata, options),
+            version_data: this.getLatestVersionTime(releases),
             description,
-            source: SOURCES.NPM
+            releases,
         });
     }
 
-    getVersionTimes({ time: { modified, created, ...versions } }) {
-        return _.map(versions, (currDate, currVersion) => ({ version: currVersion, date: currDate }));
+    getVersionTimes({ time: { modified, created, ...versions } }, options) {
+        return _.map(versions.slice(0, 4), (date, version) =>
+            new VersionData({ version, date: moment(date) }, options));
     }
 
-    getLatestVersionTime(libraryMetadata, options) {
-        let versions = this.getVersionTimes(libraryMetadata);
-        let { version, date } = _.maxBy(versions, ({ date }) => date);
-        return new VersionData({version, date: moment(date)}, options);
+    getLatestVersionTime(versions) {
+        return _.maxBy(versions, ({ date }) => date);
     }
 }
